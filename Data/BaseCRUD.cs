@@ -38,7 +38,7 @@ namespace FitControl.Data
         /// Exclui uma entidade específica da lista.
         /// </summary>
         public void Excluir(T entidade)
-        {
+        { 
             _dados.Remove(entidade);
         }
 
