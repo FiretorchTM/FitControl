@@ -13,47 +13,64 @@ namespace FitControl
     {
         static void Main(string[] args)
         {
-            /*
-            // Criação de planos-------------------------------------------------------------
-            PlanoModel plano1 = new PlanoModel("01", "Plano Básico: não inclui cicling nem natação", 99.99, 1);
-            PlanoModel plano2 = new PlanoModel();
+            // Aviso: Não redimensione a janela para não quebrar o layout da classe Tela ||| Se redimencionar o primeiro input vai quebrar mas os outros não.
+            Console.Title = "FitControl - Academia"; // Muda o nome no topo da janela
 
-            plano2.CodigoPlano = "02";
-            plano2.Descricao = "Plano Intermediário: inclui cicling, mas não inclui natação";
-            plano2.ValorMensalidade = 149.99;
-            plano2.LimiteAulas = 3;
+            AlunoController alunoController = new AlunoController();
+            AlunoView alunoView = new AlunoView(alunoController);//Objeto
+            PrincipalView menuView = new PrincipalView();
 
-            PlanoModel plano3 = new PlanoModel("03", "Plano Premium: inclui cicling e natação", 199.99, 5);
+            string opcaoPrincipal = "";
 
-            // Criação de alunos-------------------------------------------------------------
-            AlunoModel aluno1 = new AlunoModel("12345", "João Silva", "11987654321","123123", plano1);
-            AlunoModel aluno2 = new AlunoModel();
+            // Meu laço principal
+            while (opcaoPrincipal != "0") 
+            {
+                // Mostra o menu e guarda o input do usuario
+                opcaoPrincipal = menuView.ExibirMenu();
 
-                aluno2.Matricula = "67890";
-                aluno2.Nome = "Maria Souza";
-                aluno2.Telefone = "11912345678";
-                aluno2.PlanoContratado = plano2;
+                switch (opcaoPrincipal)
+                {
 
-            // Criação de frequências-------------------------------------------------------------
-            FrequenciaModel frequencia1 = new FrequenciaModel(aluno1,DateTime.Now);
-            FrequenciaModel frequencia2 = new FrequenciaModel(aluno2, DateTime.Now);
-            */
+                    case "1":
+                        //Abre a tela dos alunos
+                        alunoView.ShowForm();
+                        AlunoModel novoAluno = alunoView.EnterData("ALL");
 
+                        alunoController.Adicionar(novoAluno);
 
-            // Instancia o Controller e a View
-            AlunoController controller = new AlunoController();
-            AlunoView view = new AlunoView(controller);
+                        alunoView.Centralizar(10, 70, 17, $"Aluno {novoAluno.Nome} lido com sucesso!");
+                        Console.ReadKey();// Pausazinha para o aluno ler a msg
+                        break;
 
-            // 1. Desenha a moldura e os textos
-            view.ShowForm();
+                    // Futura tela de planos
+                    case "2":
+                        menuView.Centralizar(10, 70, 17, "PLANOS: em construção...");
+                        Console.ReadKey();
+                        break;
 
-            // 2. Trava o console pedindo para o usuário digitar os dados (ALL = ler PK e DT)
-            AlunoModel alunoDigitado = view.EnterData("ALL");
+                    // Futura tela de relatorios
+                    case "3":
+                        menuView.Centralizar(10, 70, 17, "RELATÓRIOS: em construção...");
+                        Console.ReadKey();
+                        break;
 
-            // 3. Só para mostrar que deu certo, centraliza uma mensagem de sucesso no rodapé
-            view.Centralizar(10, 70, 17, $"Aluno: {alunoDigitado.Nome} -> salvo com sucesso ");
+                    case "4":
+                        menuView.Centralizar(10, 70, 17, "Exclusão em construção...");
+                        break;
 
-            Console.ReadKey(); // Pausa a tela para não fechar
+                    // Saida do programa
+                    case "0":
+                        menuView.Centralizar(10, 70, 17, "Encerrando o sistema. Até logo!");
+                        Console.ReadKey();
+                        break;
+
+                    default:
+                        // Caso o usuário digite alguma coisa que não esta no menu
+                        menuView.Centralizar(10, 70, 17, "Opção invalida! tente novamente.");
+                        break;
+                }
+            }
+            break;
         }
     }
 }

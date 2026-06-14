@@ -24,9 +24,30 @@ namespace FitControl.Views
         }
 
         /// <summary>
+        /// Exibe o submenu específico para o gerenciamento de Alunos.
+        /// </summary>
+        public string ExibirSubMenu()
+        {
+            this.PrepararTela("Gerenciamento de alunos", 10, 5, 70, 20);
+
+            List<string> opcoes = new List<string> 
+            {
+                "1 - Cadastrar Aluno",
+                "2 - Listar Todos os Alunos",
+                "3 - Alterar Dados do Aluno",
+                "4 - Excluir Aluno",
+                "0 - Voltar ao Menu Principal"
+            };
+
+            string opcaoEscolhida = this.MostrarMenu(22, 8, opcoes);
+            
+        }
+
+
+
+        /// <summary>
         /// Exibe o esqueleto do formulário na tela usando as molduras da classe Tela.
         /// </summary>
-        
         public void ShowForm() 
         {
             // Usa o PrepararTela (que limpa tudo, desenha moldura e centraliza o título)
