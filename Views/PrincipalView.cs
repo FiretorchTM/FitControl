@@ -10,7 +10,7 @@ namespace FitControl.Views
     /// <summary>
     /// View responsável por exibir o menu inicial e gerenciar a navegação principal do sistema.
     /// </summary>
-    internal class PrincipalView : Tela
+    public class PrincipalView : Tela
     {
         //Construtor que mantem com o padrao visual do programa(Fundo azul escuro e fundo branco)
         public PrincipalView() : base(ConsoleColor.DarkBlue, ConsoleColor.White) { }

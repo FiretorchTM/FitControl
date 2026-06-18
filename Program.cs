@@ -1,4 +1,5 @@
 ﻿using FitControl.Controllers;
+using FitControl.Data;
 using FitControl.Models;
 using FitControl.Views;
 using System;
@@ -14,11 +15,19 @@ namespace FitControl
         static void Main(string[] args)
         {
             // Aviso: Não redimensione a janela para não quebrar o layout da classe Tela ||| Se redimencionar o primeiro input vai quebrar mas os outros não.
-            Console.Title = "FitControl - Academia"; // Muda o nome no topo da janela
+            Console.Title = "Academia - FitControl"; // Muda o nome no topo da janela
 
+            //--------------Instanciar Controllers e views
             AlunoController alunoController = new AlunoController();
             AlunoView alunoView = new AlunoView(alunoController);//Objeto
+
+            PlanoController planoController = new PlanoController();
+            PlanoView planoView = new PlanoView();
+
             PrincipalView menuView = new PrincipalView();
+            //--------------Carregar dados iniciais do txt
+            alunoController.CarregarDados();
+            planoController.CarregarDados();
 
             string opcaoPrincipal = "";
 
@@ -31,25 +40,16 @@ namespace FitControl
                 switch (opcaoPrincipal)
                 {
 
-                    case "1":
-                        //Abre a tela dos alunos
-                        alunoView.ShowForm();
-                        AlunoModel novoAluno = alunoView.EnterData("ALL");
-
-                        alunoController.Adicionar(novoAluno);
-
-                        alunoView.Centralizar(10, 70, 17, $"Aluno {novoAluno.Nome} lido com sucesso!");
-                        Console.ReadKey();// Pausazinha para o aluno ler a msg
+                    case "1":// Tela dos alunos
+                        alunoController.CRUD(alunoView);
                         break;
 
-                    // Futura tela de planos
-                    case "2":
-                        menuView.Centralizar(10, 70, 17, "PLANOS: em construção...");
-                        Console.ReadKey();
+                    case "2":// Tela dos planos
+                        planoController.CRUD(planoView);
                         break;
 
-                    // Futura tela de relatorios
-                    case "3":
+                    
+                    case "3":// Tela dos relatorios
                         menuView.Centralizar(10, 70, 17, "RELATÓRIOS: em construção...");
                         Console.ReadKey();
                         break;
@@ -60,6 +60,8 @@ namespace FitControl
 
                     // Saida do programa
                     case "0":
+                        alunoController.SalvarDados();
+                        planoController.SalvarDados();
                         menuView.Centralizar(10, 70, 17, "Encerrando o sistema. Até logo!");
                         Console.ReadKey();
                         break;
@@ -70,7 +72,13 @@ namespace FitControl
                         break;
                 }
             }
-            break;
+
+
+
+
+
         }
     }
 }
+
+

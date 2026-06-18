@@ -9,7 +9,7 @@ using FitControl.Controllers;
 
 namespace FitControl.Views
 {
-    internal class AlunoView : Tela
+    public class AlunoView : Tela
     {
         /// <summary>
         /// View responsável pela interação de Alunos. Herda as funcionalidades visuais da classe Tela.
@@ -40,7 +40,7 @@ namespace FitControl.Views
             };
 
             string opcaoEscolhida = this.MostrarMenu(22, 8, opcoes);
-            
+            return opcaoEscolhida;
         }
 
 
@@ -123,6 +123,44 @@ namespace FitControl.Views
 
             Console.SetCursorPosition(24, 14);
             Console.Write(aluno.CPF);
+        }
+
+        /// <summary>
+        /// Exibe a lista de alunos cadastrados na tela.
+        /// </summary>
+        public void ListarAlunos(List<AlunoModel> alunos)
+        {
+            // Calcula o tamanho da tela baseado na quantidade de alunos (para a caixa não quebrar)
+            // Se estiver vazio, a linha final é 13. Se tiver alunos, a caixa cresce.
+            int linhaFinal = alunos.Count == 0 ? 13 : 11 + alunos.Count + 2;
+
+            this.PrepararTela("LISTAGEM DE ALUNOS", 10, 5, 85, linhaFinal);
+
+            Console.SetCursorPosition(12, 8);
+
+            if (alunos.Count == 0)
+            {
+                Console.Write("Nenhum aluno cadastrado no sistema.");
+            }
+            else
+            {
+                // Cabeçalho da tabela (o sinal de - no número serve para alinhar as colunas)
+                Console.Write($"{"MATRÍCULA",-10} | {"NOME",-25} | {"Contato",-11} | {"CPF",-11} ");
+
+                int linhaAtual = 10; // Começa a listar os alunos a partir da linha 9
+
+                foreach (AlunoModel aluno in alunos)
+                {
+                    Console.SetCursorPosition(12, linhaAtual);
+                    // O símbolo -10 e -25 formata o texto para ocupar aquele espaço fixo, criando um visual de "Tabela"
+                    Console.Write($"{aluno.Matricula,-10} | {aluno.Nome,-25} | {aluno.Telefone,-11} |{aluno.CPF,-11} ");
+                    linhaAtual++;
+                }
+            }
+
+            // Mensagem padrão de voltar
+            Console.SetCursorPosition(12, linhaFinal - 1);
+            Console.Write("Pressione qualquer tecla para voltar...");
         }
     }
 }

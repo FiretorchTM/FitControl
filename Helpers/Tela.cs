@@ -133,16 +133,26 @@ namespace FitControl.Helpers
         {
             string op;
             int x;
-            int colfin = colini + opcoes[0].Length + 1;
-            int linfin = linini + opcoes.Count() + 2;
+            // Procura qual é a maior frase dentro da lista de opções para adaptar a largura
+            int maiorTamanho = 0;
+            foreach (string opcao in opcoes)
+            {
+                if (opcao.Length > maiorTamanho)
+                {
+                    maiorTamanho = opcao.Length;
+                }
+            }
+
+            int colfin = colini + maiorTamanho + 3;
+            int linfin = linini + opcoes.Count() + 3;
 
             this.MontarMoldura(colini, linini, colfin, linfin);
             for (x = 0; x < opcoes.Count(); x++)
             {
-                Console.SetCursorPosition(colini + 1, linini + 1 + x);
+                Console.SetCursorPosition(colini + 2, linini + 1 + x);
                 Console.Write(opcoes[x]);
             }
-            Console.SetCursorPosition(colini + 1, linini + 1 + x);
+            Console.SetCursorPosition(colini + 2, linini + 2 + x);
             Console.Write("Opção : ");
             op = Console.ReadLine();
 

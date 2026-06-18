@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FitControl.Views
 {
-    internal class FrequenciaView
+    public class FrequenciaView
     {
     }
 }
